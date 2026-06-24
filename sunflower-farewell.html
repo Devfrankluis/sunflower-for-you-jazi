@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sunflower Farewell</title>
+<style>
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body {
+    overflow: hidden;
+    background: linear-gradient(to bottom, #0b1120, #111827, #1e293b);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: Georgia, serif;
+  }
+
+  /* ── Stars ─────────────────────────────────────────── */
+  .star {
+    position: fixed;
+    color: #fff;
+    opacity: 0;
+    animation: twinkle 5s infinite ease-in-out;
+    pointer-events: none;
+    user-select: none;
+  }
+  @keyframes twinkle {
+    0%   { opacity: 0;   transform: scale(0.7) translateY(0); }
+    50%  { opacity: 0.75; transform: scale(1)   translateY(-6px); }
+    100% { opacity: 0;   transform: scale(0.7) translateY(-14px); }
+  }
+
+  /* ── Message ────────────────────────────────────────── */
+  .message {
+    position: fixed;
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 860px;
+    text-align: center;
+    color: #fff8dc;
+    line-height: 1.9;
+    z-index: 10;
+  }
+  .message p {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 2s forwards;
+  }
+  .message p:nth-child(1) { animation-delay: 4s;  font-size: clamp(1rem, 2.5vw, 1.7rem); }
+  .message p:nth-child(2) { animation-delay: 6s;  font-size: clamp(0.95rem, 2.2vw, 1.55rem); color: #fde68a; }
+  .message p:nth-child(3) { animation-delay: 8s;  font-size: clamp(0.95rem, 2.2vw, 1.55rem); }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scene wrapper ──────────────────────────────────── */
+  .scene {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 0;
+  }
+
+  /* ── Bouquet SVG ────────────────────────────────────── */
+  .bouquet-svg {
+    width: min(460px, 92vw);
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  /* stem grow */
+  .stem-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: stemGrow 1.8s forwards ease-out;
+  }
+  @keyframes stemGrow {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* flower bloom */
+  .flower-head {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    transform: scale(0);
+    animation: bloom 1s forwards cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes bloom {
+    to { transform: scale(1); }
+  }
+
+  /* wrapper appear */
+  .bouquet-wrap {
+    opacity: 0;
+    animation: appear 1.5s forwards;
+  }
+  @keyframes appear {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div id="stars"></div>
+
+<!-- Message -->
+<div class="message">
+  <p>I will now let go of the idea of you that lived within my soul.</p>
+  <p>Like a sunflower turning from the setting sun,</p>
+  <p>I carry the warmth, but release the longing. 🌻</p>
+</div>
+
+<!-- Scene -->
+<div class="scene">
+  <!--
+    SVG coordinate system: viewBox="0 0 460 480"
+    Pot base sits at y=480. Stems rise from y=380 (pot top).
+    Flower heads sit at the TOP of each stem.
+
+    5 flowers:
+      Center:  x=230, stem top y=110  (tallest)
+      Inner L: x=165, stem top y=140, rotated -12deg
+      Inner R: x=295, stem top y=140, rotated +12deg
+      Outer L: x=100, stem top y=170, rotated -22deg
+      Outer R: x=360, stem top y=170, rotated +22deg
+  -->
+  <svg class="bouquet-svg" viewBox="0 0 460 500"
+       xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <!-- Sunflower head: center (0,0), radius ~46 -->
+      <g id="sunflower">
+        <!-- 16 petals -->
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(22.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(67.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(112.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#facc15" transform="rotate(157.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(202.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(247.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(292.5)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(315)"/>
+        <ellipse cx="0" cy="-38" rx="11" ry="22" fill="#f59e0b" transform="rotate(337.5)"/>
+        <!-- Dark center -->
+        <circle cx="0" cy="0" r="18" fill="#3b1f0c"/>
+        <circle cx="0" cy="0" r="14" fill="#4b2e16"/>
+        <!-- Texture dots -->
+        <circle cx="-5" cy="-5" r="2.5" fill="#2d1508" opacity=".6"/>
+        <circle cx="5"  cy="-5" r="2.5" fill="#2d1508" opacity=".6"/>
+        <circle cx="0"  cy="5"  r="2.5" fill="#2d1508" opacity=".6"/>
+        <circle cx="-7" cy="4"  r="2"   fill="#2d1508" opacity=".4"/>
+        <circle cx="7"  cy="4"  r="2"   fill="#2d1508" opacity=".4"/>
+      </g>
+    </defs>
+
+    <!-- ══ STEMS ══ (drawn first so flowers sit on top) -->
+
+    <!-- Outer L stem: from pot-top (100,390) to flower base (100,190) rotated -22deg -->
+    <line class="stem-line" style="animation-delay:.1s"
+      x1="100" y1="390" x2="100" y2="190"
+      stroke="#3fa34d" stroke-width="6" stroke-linecap="round"/>
+    <!-- Inner L stem -->
+    <line class="stem-line" style="animation-delay:.2s"
+      x1="165" y1="390" x2="165" y2="160"
+      stroke="#3fa34d" stroke-width="6" stroke-linecap="round"/>
+    <!-- Center stem (tallest) -->
+    <line class="stem-line" style="animation-delay:.3s"
+      x1="230" y1="390" x2="230" y2="120"
+      stroke="#3fa34d" stroke-width="7" stroke-linecap="round"/>
+    <!-- Inner R stem -->
+    <line class="stem-line" style="animation-delay:.2s"
+      x1="295" y1="390" x2="295" y2="160"
+      stroke="#3fa34d" stroke-width="6" stroke-linecap="round"/>
+    <!-- Outer R stem -->
+    <line class="stem-line" style="animation-delay:.1s"
+      x1="360" y1="390" x2="360" y2="190"
+      stroke="#3fa34d" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Small leaves -->
+    <ellipse cx="88"  cy="290" rx="16" ry="8" fill="#3fa34d" transform="rotate(-40 88 290)"  opacity="0" style="animation:appear 1s .8s forwards"/>
+    <ellipse cx="178" cy="270" rx="16" ry="8" fill="#3fa34d" transform="rotate(-35 178 270)" opacity="0" style="animation:appear 1s .9s forwards"/>
+    <ellipse cx="280" cy="240" rx="16" ry="8" fill="#3fa34d" transform="rotate(35 280 240)"  opacity="0" style="animation:appear 1s .9s forwards"/>
+    <ellipse cx="372" cy="290" rx="16" ry="8" fill="#3fa34d" transform="rotate(40 372 290)"  opacity="0" style="animation:appear 1s .8s forwards"/>
+
+    <!-- ══ BOUQUET WRAPPER (cellophane/paper) ══ -->
+    <g class="bouquet-wrap" style="animation-delay:2.2s">
+      <!-- Paper cone: wide at top (~x=90 to x=370, y=390), narrows to point at bottom (x=230, y=490) -->
+      <polygon points="90,390 370,390 310,490 150,490"
+        fill="rgba(255,255,255,0.10)"
+        stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <!-- Sheen highlight -->
+      <polygon points="90,390 180,390 155,490 150,490"
+        fill="rgba(255,255,255,0.06)"/>
+    </g>
+
+    <!-- ══ POT ══ -->
+    <g class="bouquet-wrap" style="animation-delay:2s">
+      <!-- Pot body -->
+      <path d="M150,490 Q150,500 160,500 L300,500 Q310,500 310,490 Z"
+        fill="#b45309"/>
+      <!-- Pot rim -->
+      <rect x="130" y="483" width="200" height="14" rx="6"
+        fill="#92400e"/>
+      <!-- Pot sheen -->
+      <ellipse cx="175" cy="492" rx="18" ry="5" fill="rgba(255,255,255,0.12)"/>
+    </g>
+
+    <!-- ══ RIBBON ══ -->
+    <g class="bouquet-wrap" style="animation-delay:2.8s">
+      <text x="230" y="476" text-anchor="middle" font-size="28">🎀</text>
+    </g>
+
+    <!-- ══ FLOWER HEADS ══ (on top of stems, bloom delayed) -->
+
+    <!-- Outer L: stem top at (100,190), tilted left -->
+    <g transform="translate(100,190) rotate(-22)">
+      <g class="flower-head" style="animation-delay:2s">
+        <use href="#sunflower"/>
+      </g>
+    </g>
+
+    <!-- Inner L: stem top at (165,160), slight tilt -->
+    <g transform="translate(165,160) rotate(-10)">
+      <g class="flower-head" style="animation-delay:2.2s">
+        <use href="#sunflower"/>
+      </g>
+    </g>
+
+    <!-- Center: stem top at (230,120), straight -->
+    <g transform="translate(230,120) rotate(0)">
+      <g class="flower-head" style="animation-delay:2.4s">
+        <use href="#sunflower"/>
+      </g>
+    </g>
+
+    <!-- Inner R: stem top at (295,160) -->
+    <g transform="translate(295,160) rotate(10)">
+      <g class="flower-head" style="animation-delay:2.2s">
+        <use href="#sunflower"/>
+      </g>
+    </g>
+
+    <!-- Outer R: stem top at (360,190) -->
+    <g transform="translate(360,190) rotate(22)">
+      <g class="flower-head" style="animation-delay:2s">
+        <use href="#sunflower"/>
+      </g>
+    </g>
+
+  </svg>
+</div>
+
+<script>
+  // Generate twinkling stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 55; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.textContent = i % 3 === 0 ? '✦' : '·';
+    s.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top:  ${Math.random() * 80}vh;
+      animation-delay: ${(Math.random() * 7).toFixed(2)}s;
+      font-size: ${(9 + Math.random() * 14).toFixed(1)}px;
+    `;
+    starsContainer.appendChild(s);
+  }
+</script>
+</body>
+</html>
